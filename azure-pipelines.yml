@@ -13,5 +13,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: oc-cmd@2
+  inputs:
+    openshiftService: 'OpenShift Connection'
+    cmd: 'oc new-app --name=dotnetapp2 ''dotnet:2.1~https://github.com/angelosleebos/s2i-dotnetcore-ex#dotnetcore-2.1'' --build-env DOTNET_STARTUP_PROJECT=app'
